@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Galerie de Imagini Verticală</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper/swiper-bundle.min.css"
+    />
+    <style>
+      /* Stilurile pentru containerul Swiper */
+      .swiper-container {
+        width: 100%;
+        height: 600px;
+        display: flex;
+        align-items: center;
+        position: relative;
+      }
+
+      /* Stilurile pentru galeria de miniaturi (thumbs) */
+      .gallery-thumbs {
+        width: 15%;
+        height: 100%;
+        margin-right: 10px;
+        box-sizing: border-box;
+        z-index: 9; /* Setează un z-index mai mic pentru a fi sub galeria principală */
+      }
+
+      .gallery-thumbs .swiper-slide {
+        width: 100%;
+        height: 100px;
+        cursor: pointer;
+      }
+
+      .gallery-thumbs .swiper-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* Stilurile pentru galeria principală (imaginea mare) */
+      .gallery-top {
+        width: 85%;
+        height: 100%;
+        z-index: 1; /* Setează un z-index mai mare pentru a avea prioritate */
+        position: relative;
+      }
+
+      .gallery-top .swiper-slide img {
+        width: 100%;
+        height: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Container general pentru galerie -->
+    <div class="swiper-container">
+      <!-- Galerie de miniaturi (thumbs) -->
+      <div class="swiper-container gallery-thumbs">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="./layout/img/img_01.jpeg" alt="Thumb 1" />
+          </div>
+          <div class="swiper-slide">
+            <img src="./layout/img/img_02.jpeg" alt="Thumb 2" />
+          </div>
+          <div class="swiper-slide">
+            <img src="./layout/img/img_03.jpeg" alt="Thumb 3" />
+          </div>
+          <div class="swiper-slide">
+            <img src="./layout/img/img_04.jpeg" alt="Thumb 4" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Galerie principală (imaginea mare) -->
+      <div class="swiper-container gallery-top">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="./layout/img/img_01.jpeg" alt="Main 1" />
+          </div>
+          <div class="swiper-slide">
+            <img src="./layout/img/img_02.jpeg" alt="Main 2" />
+          </div>
+          <div class="swiper-slide">
+            <img src="./layout/img/img_03.jpeg" alt="Main 3" />
+          </div>
+          <div class="swiper-slide">
+            <img src="./layout/img/img_04.jpeg" alt="Main 4" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripturi Swiper.js -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+      // Inițializarea galeriei de miniaturi (thumbs)
+      var galleryThumbs = new Swiper(".gallery-thumbs", {
+        spaceBetween: 10,
+        slidesPerView: 4,
+        direction: "vertical",
+        watchSlidesVisibility: true,
+        watchSlidesProgress: true,
+        slideToClickedSlide: true, // Adaugă această opțiune pentru click pe miniaturi
+      });
+
+      // Inițializarea galeriei principale (imaginea mare)
+      var galleryTop = new Swiper(".gallery-top", {
+        spaceBetween: 10,
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+        thumbs: {
+          swiper: galleryThumbs,
+        },
+      });
+
+      // Eveniment hover pe miniaturi
+      document
+        .querySelectorAll(".gallery-thumbs .swiper-slide")
+        .forEach(function (thumb, index) {
+          thumb.addEventListener("mouseenter", function () {
+            galleryTop.slideTo(index); // Face tranziția la slide-ul corespunzător pe hover
+          });
+        });
+    </script>
+  </body>
+</html>

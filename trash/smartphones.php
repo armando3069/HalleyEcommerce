@@ -3,16 +3,11 @@
 	session_start();
 	$pageTitle = 'Homepage';
 	include 'init.php';
+?>
 
-// Verifică dacă s-a selectat o categorie
-$category = isset($_GET['category']) ? $_GET['category'] : null;
-
-// URL-ul API-ului Strapi cu filtrare pe categorie
-if ($category) {
-    $url = "http://localhost:1337/api/products/?populate=*&filters[categories][$eq]=" . urlencode($category);
-} else {
-    $url = "http://localhost:1337/api/products/?populate=*";
-}
+<?php
+// URL-ul API-ului Strapi
+$url = "http://localhost:1337/api/products/?populate=*";
 
 // Token-ul de autorizare
 $token = "e4c867603e15caf2e4dd1c9c8a4bec1392114bf05f708ed769d401bc5bc7b44087560011af4b58604394f6b50589ab6ee9f99c9cd10a4ddf01781345a875de40a67a795b356104dbd271df76c472780bd9c75d62fb1d1b59f629a0f055121194153a94ac0201d184108b859f1e5b38305868f1e2458af287e5f36c34d9007ff6";
@@ -55,37 +50,20 @@ $products = $data['data'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products</title>
     <style>
-    /* Containerul principal */
+    /* CSS-ul pentru containerul flex */
     .viewport_container {
+        width: 100%;
         display: flex;
         justify-content: center;
-        padding: 20px;
+        align-items: center;
     }
 
-    /* Containerul pentru filtrare */
-    .filter-container {
-        width: 200px;
-        padding: 20px;
-        border-right: 1px solid #ddd;
-        margin-right: 20px;
-    }
-
-    /* Stiluri pentru dropdown */
-    .category-select {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        margin-bottom: 20px;
-        font-size: 16px;
-    }
-
-    /* Containerul pentru produse */
     .products-container {
         display: flex;
         flex-wrap: wrap;
         gap: 20px;
-        justify-content: flex-start;
+        justify-content: center;
+        padding: 20px;
         max-width: 850px;
         width: 100%;
     }
@@ -121,11 +99,13 @@ $products = $data['data'];
         color: #333;
     }
 
+
     .product-price {
         font-size: 22px;
         font-weight: bold;
         color: black;
     }
+
 
     .add-to-cart {
         background-color: black;
@@ -146,35 +126,21 @@ $products = $data['data'];
 
 <body>
     <div class="viewport_container">
-        <!-- Containerul pentru filtrare -->
-        <div class="filter-container">
-            <form method="GET">
-                <label for="category">Selectează Categoria:</label>
-                <select id="category" name="category" class="category-select" onchange="this.form.submit()">
-                    <option value="">Toate</option>
-                    <option value="Apple" <?php if($category == 'Apple') echo 'selected'; ?>>Apple</option>
-                    <option value="Samsung" <?php if($category == 'Samsung') echo 'selected'; ?>>Samsung</option>
-                    <option value="Xiaomi" <?php if($category == 'Xiaomi') echo 'selected'; ?>>Xiaomi</option>
-                </select>
-            </form>
-        </div>
-
-        <!-- Containerul pentru produse -->
         <div class="products-container">
             <?php foreach ($products as $product): ?>
             <div class="product-item">
-                <!-- Imaginea produsului -->
+
                 <img src="<?php echo 'http://localhost:1337' . $product['attributes']['image']['data'][0]['attributes']['url']; ?>"
                     alt="<?php echo $product['attributes']['title']; ?>" class="product-image">
 
-                <!-- Titlul produsului -->
+
                 <h1 class="product-title"><?php echo $product['attributes']['title']; ?></h1>
 
-                <!-- Prețul produsului -->
+
                 <p class="product-price">$<?php echo $product['attributes']['price']; ?></p>
 
-                <!-- Butonul de adăugare la coș -->
-                <a href="product.php?id=<?php echo $product['id']; ?>" class="add-to-cart">Buy Now</a>
+
+                <button class="add-to-cart">Buy Now</button>
             </div>
             <?php endforeach; ?>
         </div>

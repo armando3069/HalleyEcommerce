@@ -1,0 +1,95 @@
+/* Containerul principal */
+.smartphones_viewport_container {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  padding: 20px;
+}
+
+/* Containerul pentru filtrare */
+.smartphones_filter-container {
+  width: 200px;
+  padding: 20px;
+  border-right: 1px solid #ddd;
+  margin-right: 20px;
+}
+
+/* Stiluri pentru dropdown */
+.smartphones_category-select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+/* Containerul pentru produse */
+.smartphones_products-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start;
+  max-width: 850px;
+  width: 100%;
+}
+
+/* Stiluri pentru fiecare produs */
+.smartphones_product-item {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  width: 250px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.smartphones_product-item:hover {
+  transform: scale(1.05);
+}
+
+/* Stiluri pentru imagine */
+.smartphones_product-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+/* Titlul produsului */
+.smartphones_product-title {
+  font-size: 18px;
+  margin: 15px 0;
+  color: #333;
+}
+
+.smartphones_product-price {
+  font-size: 22px;
+  font-weight: bold;
+  color: black;
+}
+
+.smartphones_add-to-cart {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.smartphones_add-to-cart:hover {
+  background-color: #2980b9;
+}
+
+@media (max-width: 1030px) {
+  .viewport_container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
